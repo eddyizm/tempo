@@ -39,6 +39,9 @@ import com.cappielloantonio.tempo.util.MusicUtil;
 import com.cappielloantonio.tempo.viewmodel.AlbumPageViewModel;
 import com.google.common.util.concurrent.ListenableFuture;
 
+import androidx.media3.common.MediaItem;
+import com.cappielloantonio.tempo.util.ExternalAudioWriter;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
@@ -106,7 +109,15 @@ public class AlbumPageFragment extends Fragment implements ClickCallback {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_download_album) {
             albumPageViewModel.getAlbumSongLiveList().observe(getViewLifecycleOwner(), songs -> {
-                DownloadUtil.getDownloadTracker(requireContext()).download(MappingUtil.mapDownloads(songs), songs.stream().map(Download::new).collect(Collectors.toList()));
+                DownloadUtil.getDownloadTracker(requireContext()).download(
+                    MappingUtil.mapDownloads(songs),
+                    songs.stream().map(Download::new).collect(Collectors.toList())
+                );
+
+                MappingUtil.mapMediaItems(songs).forEach(media -> {
+                    String title = media.mediaMetadata.title != null ? media.mediaMetadata.title.toString() : media.mediaId;
+                    ExternalAudioWriter.downloadToUserDirectory(requireContext(), media, title);
+                });
             });
             return true;
         }
