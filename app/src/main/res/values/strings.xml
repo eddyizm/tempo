@@ -68,6 +68,7 @@
     <string name="download_directory_dialog_positive_button">Download</string>
     <string name="download_directory_dialog_summary">All tracks in this folder will be downloaded. Tracks present in subfolders will not be downloaded.</string>
     <string name="download_directory_dialog_title">Download the tracks</string>
+    <string name="download_directory_set">Set where music is downloaded</string>
     <string name="download_info_empty_subtitle">Once you download a song, you\'ll find it here</string>
     <string name="download_info_empty_title">No downloads yet!</string>
     <string name="download_item_multiple_subtitle_formatter">%1$s  •  %2$s items</string>

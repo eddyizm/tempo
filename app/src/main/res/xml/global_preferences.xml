@@ -152,6 +152,12 @@
             app:title="@string/settings_download_storage_title" />
 
         <Preference
+            android:key="set_download_directory"
+            android:title="Set Download Folder"
+            android:summary="Choose a folder for downloaded music files"
+            android:order="104" />
+
+        <Preference
             android:key="delete_download_storage"
             app:title="@string/settings_delete_download_storage_title"
             app:summary="@string/settings_delete_download_storage_summary"/>
