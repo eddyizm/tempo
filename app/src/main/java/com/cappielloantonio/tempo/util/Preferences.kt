@@ -178,7 +178,7 @@ object Preferences {
 
     @JvmStatic
     fun isInUseServerAddressLocal(): Boolean {
-        return getInUseServerAddress() == getLocalAddress()
+        return getInUseServerAddress() == getLocalAddress() && !getLocalAddress().isNullOrEmpty()
     }
 
     @JvmStatic
