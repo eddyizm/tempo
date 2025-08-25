@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import android.widget.RatingBar;
@@ -66,6 +67,7 @@ public class PlayerControllerFragment extends Fragment {
     private ConstraintLayout playerQuickActionView;
     private ImageButton playerOpenQueueButton;
     private ImageButton playerTrackInfo;
+    private LinearLayout ratingContainer;
 
     private MainActivity activity;
     private PlayerBottomSheetViewModel playerBottomSheetViewModel;
@@ -123,6 +125,8 @@ public class PlayerControllerFragment extends Fragment {
         playerOpenQueueButton = bind.getRoot().findViewById(R.id.player_open_queue_button);
         playerTrackInfo = bind.getRoot().findViewById(R.id.player_info_track);
         songRatingBar =  bind.getRoot().findViewById(R.id.song_rating_bar);
+        ratingContainer = bind.getRoot().findViewById(R.id.rating_container);
+        checkAndSetRatingContainerVisibility();
     }
 
     private void initQuickActionView() {
@@ -428,6 +432,17 @@ public class PlayerControllerFragment extends Fragment {
 
     public void goToLyricsPage() {
         playerMediaCoverViewPager.setCurrentItem(1, true);
+    }
+
+    private void checkAndSetRatingContainerVisibility() {
+     if (ratingContainer == null) return;
+
+     if (Preferences.showItemStarRating()) {
+            ratingContainer.setVisibility(View.VISIBLE);
+         }
+     else {
+            ratingContainer.setVisibility(View.GONE);
+        }
     }
 
     private void setPlaybackParameters(MediaBrowser mediaBrowser) {
