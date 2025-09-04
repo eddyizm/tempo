@@ -39,6 +39,10 @@ import com.cappielloantonio.tempo.viewmodel.SongBottomSheetViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.common.util.concurrent.ListenableFuture;
 
+import android.content.Intent;
+import androidx.media3.common.MediaItem;
+import com.cappielloantonio.tempo.util.ExternalAudioWriter;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -163,6 +167,9 @@ public class SongBottomSheetDialog extends BottomSheetDialogFragment implements 
                     MappingUtil.mapDownload(song),
                     new Download(song)
             );
+            MediaItem item = MappingUtil.mapMediaItem(song);
+            String title = item.mediaMetadata.title != null ? item.mediaMetadata.title.toString() : item.mediaId;
+            ExternalAudioWriter.downloadToUserDirectory(requireContext(), item, title);
             dismissBottomSheet();
         });
 
