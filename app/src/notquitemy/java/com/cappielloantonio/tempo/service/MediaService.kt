@@ -10,7 +10,6 @@ import androidx.media3.common.*
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.DefaultLoadControl
 import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import androidx.media3.exoplayer.source.TrackGroupArray
 import androidx.media3.exoplayer.trackselection.TrackSelectionArray
 import androidx.media3.session.*
@@ -19,6 +18,7 @@ import com.cappielloantonio.tempo.R
 import com.cappielloantonio.tempo.ui.activity.MainActivity
 import com.cappielloantonio.tempo.util.Constants
 import com.cappielloantonio.tempo.util.DownloadUtil
+import com.cappielloantonio.tempo.util.DynamicMediaSourceFactory
 import com.cappielloantonio.tempo.util.Preferences
 import com.cappielloantonio.tempo.util.ReplayGainUtil
 import com.google.common.collect.ImmutableList
@@ -186,7 +186,7 @@ class MediaService : MediaLibraryService() {
     private fun initializePlayer() {
         player = ExoPlayer.Builder(this)
             .setRenderersFactory(getRenderersFactory())
-            .setMediaSourceFactory(getMediaSourceFactory())
+            .setMediaSourceFactory(DynamicMediaSourceFactory(this))
             .setAudioAttributes(AudioAttributes.DEFAULT, true)
             .setHandleAudioBecomingNoisy(true)
             .setWakeMode(C.WAKE_MODE_NETWORK)
@@ -346,7 +346,4 @@ class MediaService : MediaLibraryService() {
     }
 
     private fun getRenderersFactory() = DownloadUtil.buildRenderersFactory(this, false)
-
-    private fun getMediaSourceFactory() =
-        DefaultMediaSourceFactory(this).setDataSourceFactory(DownloadUtil.getDataSourceFactory(this))
 }
