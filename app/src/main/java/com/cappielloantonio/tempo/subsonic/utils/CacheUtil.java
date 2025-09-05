@@ -38,21 +38,36 @@ public class CacheUtil {
         return chain.proceed(request);
     };
 
+
     private boolean isConnected() {
         ConnectivityManager connectivityManager = (ConnectivityManager) App.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        if (connectivityManager != null) {
-            Network network = connectivityManager.getActiveNetwork();
-
-            if (network != null) {
-                NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
-
-                if (capabilities != null) {
-                    return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
-                }
-            }
+        if (connectivityManager == null) {
+            return false;
         }
 
-        return false;
+        Network network = connectivityManager.getActiveNetwork();
+        if (network == null) {
+            return false;
+        }
+
+        NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
+        if (capabilities == null) {
+            return false;
+        }
+
+        boolean hasInternet = capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
+        if (!hasInternet) {
+            return false;
+        }
+
+        boolean hasAppropriateTransport = capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+                || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+                || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET);
+        if (!hasAppropriateTransport) {
+            return false;
+        }
+
+        return true;
     }
+    
 }
