@@ -240,14 +240,6 @@ public class AlbumPageFragment extends Fragment implements ClickCallback {
         bind.animToolbar.setNavigationOnClickListener(v -> activity.navController.navigateUp());
 
         Objects.requireNonNull(bind.animToolbar.getOverflowIcon()).setTint(requireContext().getResources().getColor(R.color.titleTextColor, null));
-
-        bind.albumOtherInfoButton.setOnClickListener(v -> {
-            if (bind.albumDetailView.getVisibility() == View.GONE) {
-                bind.albumDetailView.setVisibility(View.VISIBLE);
-            } else if (bind.albumDetailView.getVisibility() == View.VISIBLE) {
-                bind.albumDetailView.setVisibility(View.GONE);
-            }
-        });
     }
 
     private void initAlbumInfoTextButton() {
