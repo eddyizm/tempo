@@ -248,6 +248,10 @@ public class AlbumPageFragment extends Fragment implements ClickCallback {
                 bind.albumDetailView.setVisibility(View.GONE);
             }
         });
+
+        if(Preferences.showAlbumDetail()){
+            bind.albumDetailView.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initAlbumInfoTextButton() {

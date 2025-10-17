@@ -76,6 +76,7 @@ object Preferences {
     private const val EQUALIZER_ENABLED = "equalizer_enabled"
     private const val EQUALIZER_BAND_LEVELS = "equalizer_band_levels"
     private const val MINI_SHUFFLE_BUTTON_VISIBILITY = "mini_shuffle_button_visibility"
+    private const val ALBUM_DETAIL = "album_detail"
     private const val ALBUM_SORT_ORDER = "album_sort_order"
     private const val DEFAULT_ALBUM_SORT_ORDER = Constants.ALBUM_ORDER_BY_NAME
 
@@ -641,6 +642,11 @@ object Preferences {
         return ShortArray(bandCount.toInt()) { i -> parts[i].toShortOrNull() ?: 0 }
     }
 
+    @JvmStatic
+    fun showAlbumDetail(): Boolean {
+        return App.getInstance().preferences.getBoolean(ALBUM_DETAIL, false)
+    }
+    
     @JvmStatic
     fun getAlbumSortOrder(): String {
         return App.getInstance().preferences.getString(ALBUM_SORT_ORDER, DEFAULT_ALBUM_SORT_ORDER) ?: DEFAULT_ALBUM_SORT_ORDER

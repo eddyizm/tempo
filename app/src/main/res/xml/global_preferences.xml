@@ -110,6 +110,12 @@
             android:summary="@string/settings_music_directory_summary"
             android:key="music_directory_section_visibility" />
 
+        <SwitchPreference
+            android:title="@string/settings_album_detail"
+            android:defaultValue="false"
+            android:summary="@string/settings_album_detail_summary"
+            android:key="album_detail" />
+
     </PreferenceCategory>
 
      <PreferenceCategory app:title="@string/settings_title_playlist">
