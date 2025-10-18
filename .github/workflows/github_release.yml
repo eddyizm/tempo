@@ -45,7 +45,7 @@ jobs:
           bash ./gradlew assembleTempoDebug
           bash ./gradlew assembleNotquitemyDebug
 
-      - name: Sign Tempo Release APKs
+      - name: Sign All Tempo Release APKs
         id: sign_tempo_release
         uses: r0adkll/sign-android-release@v1
         with:
@@ -54,10 +54,11 @@ jobs:
           alias: ${{ secrets.KEY_ALIAS_GITHUB }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD_GITHUB }}
+          apkPath: "**/*.apk"
         env:
           BUILD_TOOLS_VERSION: ${{ env.BUILD_TOOL_VERSION }}
 
-      - name: Sign NotQuiteMy Release APKs
+      - name: Sign All NotQuiteMy Release APKs
         id: sign_notquitemy_release
         uses: r0adkll/sign-android-release@v1
         with:
@@ -66,8 +67,37 @@ jobs:
           alias: ${{ secrets.KEY_ALIAS_GITHUB }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD_GITHUB }}
+          apkPath: "**/*.apk"
         env:
           BUILD_TOOLS_VERSION: ${{ env.BUILD_TOOL_VERSION }}
+
+      - name: Rename and Prepare APK Files
+        run: |
+          # Copy and rename tempo APKs
+          for file in app/build/outputs/apk/tempo/release/*.apk; do
+            if [[ $file == *"arm64-v8a"* ]]; then
+              cp "$file" "./app-tempo-arm64-v8a-release.apk"
+              echo "Created: app-tempo-arm64-v8a-release.apk"
+            elif [[ $file == *"armeabi-v7a"* ]]; then
+              cp "$file" "./app-tempo-armeabi-v7a-release.apk"
+              echo "Created: app-tempo-armeabi-v7a-release.apk"
+            fi
+          done
+          
+          # Copy and rename notquitemy APKs
+          for file in app/build/outputs/apk/notquitemy/release/*.apk; do
+            if [[ $file == *"arm64-v8a"* ]]; then
+              cp "$file" "./app-notquitemy-arm64-v8a-release.apk"
+              echo "Created: app-notquitemy-arm64-v8a-release.apk"
+            elif [[ $file == *"armeabi-v7a"* ]]; then
+              cp "$file" "./app-notquitemy-armeabi-v7a-release.apk"
+              echo "Created: app-notquitemy-armeabi-v7a-release.apk"
+            fi
+          done
+          
+          # List the created files for verification
+          echo "Final APK files:"
+          ls -la *.apk
 
       - name: Create Release
         id: create_release
@@ -79,24 +109,44 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-      - name: Upload Release APKs
+      - name: Upload Tempo 64-bit Release APK
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{steps.sign_tempo_release.outputs.signedReleaseFile}}
-          asset_name: app-tempo-release.apk
+          asset_path: ./app-tempo-arm64-v8a-release.apk
+          asset_name: app-tempo-arm64-v8a-release.apk
           asset_content_type: application/vnd.android.package-archive
 
-      - name: Upload NotQuiteMy Release APK
+      - name: Upload Tempo 32-bit Release APK
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{steps.sign_notquitemy_release.outputs.signedReleaseFile}}
-          asset_name: app-notquitemy-release.apk
+          asset_path: ./app-tempo-armeabi-v7a-release.apk
+          asset_name: app-tempo-armeabi-v7a-release.apk
+          asset_content_type: application/vnd.android.package-archive
+
+      - name: Upload NotQuiteMy 64-bit Release APK
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./app-notquitemy-arm64-v8a-release.apk
+          asset_name: app-notquitemy-arm64-v8a-release.apk
+          asset_content_type: application/vnd.android.package-archive
+
+      - name: Upload NotQuiteMy 32-bit Release APK
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./app-notquitemy-armeabi-v7a-release.apk
+          asset_name: app-notquitemy-armeabi-v7a-release.apk
           asset_content_type: application/vnd.android.package-archive
 
       - name: Upload Debug APKs as artifacts
@@ -113,6 +163,8 @@ jobs:
         with:
           name: release-apks
           path: |
-            ${{steps.sign_tempo_release.outputs.signedReleaseFile}}
-            ${{steps.sign_notquitemy_release.outputs.signedReleaseFile}}
+            ./app-tempo-arm64-v8a-release.apk
+            ./app-tempo-armeabi-v7a-release.apk
+            ./app-notquitemy-arm64-v8a-release.apk
+            ./app-notquitemy-armeabi-v7a-release.apk
           retention-days: 30
