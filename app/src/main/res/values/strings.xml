@@ -443,6 +443,12 @@
     <string name="song_bottom_sheet_rate">Rate</string>
     <string name="song_bottom_sheet_remove">Remove</string>
     <string name="song_bottom_sheet_share">Share</string>
+    <string name="song_bottom_sheet_view_playlists">View playlists</string>
+    <string name="song_playlists_empty">This song is not in any playlists yet.</string>
+    <string name="song_playlists_error">We couldn\'t load playlists for this song.</string>
+    <string name="song_playlists_title">Song playlists</string>
+    <string name="song_playlists_unknown_artist">Unknown artist</string>
+    <string name="song_playlists_unknown_song">Unknown song</string>
     <string name="song_list_page_downloaded">Downloaded</string>
     <string name="song_list_page_most_played">Most played tracks</string>
     <string name="song_list_page_recently_added">Recently added tracks</string>
