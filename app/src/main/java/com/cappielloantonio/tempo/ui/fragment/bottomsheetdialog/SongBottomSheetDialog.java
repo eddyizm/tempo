@@ -227,6 +227,14 @@ public class SongBottomSheetDialog extends BottomSheetDialogFragment implements 
             dismissBottomSheet();
         });
 
+        TextView viewPlaylists = view.findViewById(R.id.view_playlists_text_view);
+        viewPlaylists.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(Constants.TRACK_OBJECT, song);
+            NavHostFragment.findNavController(this).navigate(R.id.songPlaylistsFragment, bundle);
+            dismissBottomSheet();
+        });
+
         TextView goToAlbum = view.findViewById(R.id.go_to_album_text_view);
         goToAlbum.setOnClickListener(v -> songBottomSheetViewModel.getAlbum().observe(getViewLifecycleOwner(), album -> {
             if (album != null) {
