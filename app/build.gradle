@@ -10,8 +10,8 @@ android {
         minSdkVersion 24
         targetSdk 35
 
-        versionCode 36
-        versionName '3.17.14'
+        versionCode 1
+        versionName '4.0.0.alpha'
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
         javaCompileOptions {
@@ -40,14 +40,14 @@ android {
     flavorDimensions += "default"
 
     productFlavors {
-        tempo {
+        tempus {
             dimension = "default"
-            applicationId 'com.cappielloantonio.tempo'
+            applicationId 'com.eddyizm.tempus'
         }
 
-        notquitemy {
+        degoogled {
             dimension = "default"
-            applicationId "com.cappielloantonio.notquitemy.tempo"
+            applicationId "com.eddyizm.degoogled.tempus"
         }
 
     }
@@ -110,7 +110,7 @@ dependencies {
     implementation 'androidx.media3:media3-exoplayer:1.5.1'
     implementation 'androidx.media3:media3-ui:1.5.1'
     implementation 'androidx.media3:media3-exoplayer-hls:1.5.1'
-    tempoImplementation 'androidx.media3:media3-cast:1.5.1'
+    tempusImplementation 'androidx.media3:media3-cast:1.5.1'
 
 
     annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
