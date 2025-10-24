@@ -401,6 +401,22 @@
     <string name="share_bottom_sheet_update">Zaktualizuj udostępnianie</string>
     <string name="share_subtitle_item">Data wygaśnięcia: %1$s</string>
     <string name="share_unsupported_error">Udostępnianie nie jest wspierane lub włączone</string>
+    <string name="asset_link_clipboard_label">Link zasobu Tempus</string>
+    <string name="asset_link_label_song">UID piosenki</string>
+    <string name="asset_link_label_album">UID albumu</string>
+    <string name="asset_link_label_artist">UID wykonmawcy</string>
+    <string name="asset_link_label_playlist">UID playlisty</string>
+    <string name="asset_link_label_genre">UID gatunku</string>
+    <string name="asset_link_label_year">UID roku</string>
+    <string name="asset_link_label_unknown">UID zasobu</string>
+    <string name="asset_link_error_unsupported">Niewspierany link zasobu</string>
+    <string name="asset_link_error_song">Piosenka nie mogła zostać otwarta</string>
+    <string name="asset_link_error_album">Album nie mógł zostać otwarty</string>
+    <string name="asset_link_error_artist">Wykonawca nie mógł zostać otwarty</string>
+    <string name="asset_link_error_playlist">Playlista nie mogła zostać otwarta</string>
+    <string name="asset_link_chip_text">%1$s • %2$s</string>
+    <string name="asset_link_copied_toast">Skopiowano %1$s do schowka</string>
+    <string name="asset_link_debug_toast">Link zasobu: %1$s</string>
     <string name="share_update_dialog_hint_description">Opis</string>
     <string name="share_update_dialog_hint_expiration_date">Data wygaśnięcia</string>
     <string name="share_update_dialog_negative_button">Anuluj</string>
@@ -498,4 +514,6 @@
     <string name="equalizer_not_supported">Nie wspierane na tym urządzeniu</string>
     <string name="settings_app_equalizer">Korektor dźwięku</string>
     <string name="settings_app_equalizer_summary">Otwórz wbudowany korektor dźwięku</string>
+    <string name="settings_album_detail">Pokaż szczegóły albumu</string>
+    <string name="settings_album_detail_summary">Jeżeli włączone, pokaż szczegóły albumu takie jak gatunek, ilość piosenek itp. na stronie albumu</string>
 </resources>
